@@ -42,7 +42,9 @@ jobs:
 
       - name: Install dbt dependencies
         run: dbt deps
-
+      - name: debug dbt
+        run: dbt debug
+        
       - name: Run dbt models
         run: dbt run
 
