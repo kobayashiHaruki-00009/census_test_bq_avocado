@@ -52,5 +52,4 @@ jobs:
           CENSUS_API_TOKEN: ${{ secrets.CENSUS_API_TOKEN }}
         run: |
           echo "dbt run succeeded. Triggering Census sync..."
-          curl -X POST "https://app.getcensus.com/api/v1/syncs/3240303/trigger" \
-          -H "Authorization: Bearer ${{ env.CENSUS_API_TOKEN }}"
+          curl -X POST https://bearer:secret-token:5MAa91UgYS7KESvNKnWKGMZ1@app.getcensus.com/api/v1/syncs/3240303/trigger
