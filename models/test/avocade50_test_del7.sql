@@ -1,4 +1,4 @@
-with vocade50_test_del7 as (
+with avocade50_test_del7 as (
     select * from `dx-automation-poc-69d1.CENSUS.avocade50_fromCS`
 )
 SELECT *
