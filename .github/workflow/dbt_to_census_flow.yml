@@ -1,0 +1,47 @@
+name: dbt run and Census sync
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run_dbt_and_sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.12'
+
+      - name: Install dbt and BigQuery adapter
+        run: |
+          pip install dbt-bigquery==1.9.0
+
+      - name: Set up GCP credentials
+        uses: 'google-github-actions/auth@v1'
+        with:
+          credentials_json: '${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}'
+
+      - name: Create profiles.yml
+        run: |
+          mkdir -p ~/.dbt
+          echo "dbt_project:" > ~/.dbt/profiles.yml
+          echo "  target: dev" >> ~/.dbt/profiles.yml
+          echo "  outputs:" >> ~/.dbt/profiles.yml
+          echo "    dev:" >> ~/.dbt/profiles.yml
+          echo "      type: bigquery" >> ~/.dbt/profiles.yml
+          echo "      method: service-account" >> ~/.dbt/profiles.yml
+          echo "      project: [あなたのGCPプロジェクトID]" >> ~/.dbt/profiles.yml
+          echo "      dataset: [あなたのBigQueryデータセットID]" >> ~/.dbt/profiles.yml
+          echo "      location: asia-northeast1" >> ~/.dbt/profiles.yml
+          echo "      threads: 4" >> ~/.dbt/profiles.yml
+
+      - name: Install dbt dependencies
+        run: dbt deps
+
+      - name: Run dbt models
+        run: dbt run
