@@ -1,9 +1,7 @@
-
-
 select `顧客キー`,
     `顧客名`,
     `アカウント残高`,
-    "教育" as `市場セグメント`,
+    "官公庁" as `市場セグメント`,
     "11" as `国家キー`
 from test_dataset.customer_plus
 union distinct
