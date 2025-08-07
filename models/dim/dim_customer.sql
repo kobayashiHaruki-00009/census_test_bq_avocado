@@ -3,4 +3,4 @@ select `顧客キー`,
     `アカウント残高`,
     "教育" as `市場セグメント`,
     "00" as `国家キー`
-from test_dataset.src_customer
+from {{ ref('src_customer') }}
