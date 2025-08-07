@@ -1,9 +1,7 @@
 {{
-    {{
-      config(
-        materialized = 'table',
-        )
-    }}
+    config(
+    materialized = 'table',
+    )
 }}
 
 select `顧客キー`,
