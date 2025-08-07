@@ -10,3 +10,4 @@ select `顧客キー`,
     "教育" as `市場セグメント`,
     "00" as `国家キー`
 from {{ ref('src_customer') }}
+where `顧客キー` = "510"
